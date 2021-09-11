@@ -1,0 +1,139 @@
+<nav class="sidenav navbar navbar-vertical  fixed-left  navbar-expand-xs navbar-light bg-white" id="sidenav-main">
+    <div class="scrollbar-inner">
+        <!-- Brand -->
+        <div class="sidenav-header  align-items-center">
+            <a class="navbar-brand" href="javascript:void(0)">
+                {{ config('app.title') | html_decode | raw }}
+            </a>
+        </div>
+        <div class="navbar-inner">
+            <!-- Collapse -->
+            <div class="collapse navbar-collapse" id="sidenav-collapse-main">
+                <!-- Nav items -->
+                <ul class="navbar-nav">
+
+                    {{ navigation('main_menu') }}
+                </ul>
+            </div>
+        </div>
+    </div>
+</nav>
+<!-- Main content -->
+<div class="main-content" id="panel">
+    <!-- Topnav -->
+    <nav class="navbar navbar-top navbar-expand navbar-dark bg-primary">
+        <div class="container-fluid">
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <!-- Search form -->
+                <!-- Navbar links -->
+                <ul class="navbar-nav align-items-center  ml-md-auto ">
+                </ul>
+                <ul class="navbar-nav align-items-center  ml-auto ml-md-0 ">
+
+                    {% if current_user() and current_user().confirmed() %}
+
+                        <li class="dropdown dropdown-list-toggle">
+                            <a href="#" data-toggle="dropdown"
+                               class="nav-link nav-link-lg message-toggle {{ mail_messages is not empty ? 'beep' : '' }}">
+                                <i class="far fa-envelope"></i>
+                            </a>
+                            <div class="dropdown-menu dropdown-list dropdown-menu-right">
+                                <div class="dropdown-header">{{ trans("account.emails.title") }}
+                                </div>
+                                <div class="dropdown-list-content dropdown-list-message">
+                                    {% for mail in mail_messages %}
+
+                                        <a href="{{ path('account.emails.show', {id: mail.id}) }}"
+                                           class="dropdown-item dropdown-item-unread">
+                                            <div class="dropdown-item-avatar">
+                                                <img alt="image" src="{{ theme_asset('img/avatar/avatar-1.png') }}"
+                                                     class="rounded-circle">
+                                                <div class="is-online"></div>
+                                            </div>
+                                            <div class="dropdown-item-desc">
+                                                <b>{{ mail.data.subject }}</b>
+                                                <p>{{ mail.data.introLines[0] }}</p>
+                                                <div class="time">{{ mail.createdAt | ago }}</div>
+                                            </div>
+                                        </a>
+                                    {% endfor %}
+                                    <div class="dropdown-footer text-center">
+                                        <a href="{{ path('account.emails') }}">{{ trans("see_more") }}
+                                            <i class="fas fa-chevron-right"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link pr-0" href="#" role="button" data-toggle="dropdown" aria-haspopup="true"
+                               aria-expanded="false">
+                                <div class="media align-items-center">
+                  <span class="avatar avatar-sm rounded-circle">
+                    <img alt="Image placeholder" src="{{ theme_global('avatar/avatar-4.png') }}">
+                  </span>
+                                    <div class="media-body  ml-2  d-none d-lg-block">
+                                        <span class="mb-0 text-sm  font-weight-bold">{{ current_user().name }}</span>
+                                    </div>
+                                </div>
+                            </a>
+
+                            <div class="dropdown-menu dropdown-menu-right">
+                                <div class="dropdown-title">{{ trans("loggedin", {'%date%': current_user().lastSignAt.format('d/m à  H:i')}) | raw }}</div>
+                                <a href="{{ path('account.details') }}" class="dropdown-item has-icon">
+                                    <i class="fa fa-user-edit"></i> <span>{{ trans("account.details.title") }}</span>
+                                </a>
+                                <a href="{{ path('account.emails') }}" class="dropdown-item has-icon">
+                                    <i class="fa fa-envelope"></i> <span>{{ trans("account.emails.title") }}</span>
+                                </a>
+                                <a href="{{ path('account.activity') }}" class="dropdown-item has-icon">
+                                    <i class="fa fa-chart-line"></i> <span>{{ trans("account.activity.title") }}</span>
+                                </a>
+                                <div class="dropdown-divider"></div>
+                                <a href="#" class="dropdown-item has-icon text-danger" onclick="logout()">
+                                    <i class="fas fa-sign-out-alt"></i>
+                                    {{ trans("logout") }}
+                                </a>
+                            </div>
+                        </li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+    </nav>
+    {% if (current_route().name == 'account' or current_route().name is empty) %}
+    {% if current_user() %}
+    <div class="header bg-primary pb-6">
+        <div class="container-fluid">
+            <div class="header-body">
+                <div class="row align-items-center py-4">
+                    <div class="col-lg-6 col-7">
+                        <h6 class="h2 text-white d-inline-block mb-0">{{ title }}</h6>
+                    </div>
+                </div>
+                {% else %}
+
+                    <div class="header bg-primary hero pb-6 text-white" style="border-radius: 0; margin-bottom: 50px;">
+                        <div class="hero-inner">
+                            <h2>{{ setting('theme_home_title', config('app.name')) | html_decode }}</h2>
+                            <p class="lead">{{ setting('theme_home_subtitle', trans('defaultsubtitle')) | html_decode }}</p>
+                        </div>
+                    </div>
+                {% endif %}
+
+                {% else %}
+                <div class="header bg-primary pb-6">
+                    <div class="container-fluid">
+                        <div class="header-body">
+                            <div class="row align-items-center py-4">
+                                <div class="col-lg-6 col-7">
+                                    <h6 class="h2 text-white d-inline-block mb-0">{{ title }}</h6>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="container-fluid mt--6">
+{% endif %}
