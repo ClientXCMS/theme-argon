@@ -25,7 +25,10 @@
     {% if config('seo.keywords') is not empty %}
         <meta name="keywords" content="{{ config('seo.keywords') }}">
     {% endif %}
-    {% if config('seo.description') is not empty %}
+
+    {% if descriptionPage is defined %}
+        <meta name="description" content="{{ descriptionPage }}">
+    {% elseif config('seo.description') is not empty %}
         <meta name="description" content="{{ config('seo.description') }}">
     {% endif %}
     <!--[if lt IE 9]>
