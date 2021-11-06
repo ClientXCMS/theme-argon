@@ -1,4 +1,4 @@
-<nav class="sidenav navbar navbar-vertical  fixed-left  navbar-expand-xs navbar-light bg-white" id="sidenav-main">
+<nav class="sidenav navbar navbar-vertical  fixed-left  navbar-expand-xs navbar-light bg-white" id="sidenav-main" data-target="#sidenav-main">
     <div class="scrollbar-inner">
         <!-- Brand -->
         <div class="sidenav-header  align-items-center">
@@ -27,6 +27,17 @@
                 <!-- Search form -->
                 <!-- Navbar links -->
                 <ul class="navbar-nav align-items-center  ml-md-auto ">
+
+            <li class="nav-item d-xl-none">
+              <!-- Sidenav toggler -->
+              <div class="pr-3 sidenav-toggler sidenav-toggler-dark" data-action="sidenav-pin" data-target="#sidenav-main">
+                <div class="sidenav-toggler-inner">
+                  <i class="sidenav-toggler-line"></i>
+                  <i class="sidenav-toggler-line"></i>
+                  <i class="sidenav-toggler-line"></i>
+                </div>
+              </div>
+            </li>
                 </ul>
                 <ul class="navbar-nav align-items-center  ml-auto ml-md-0 ">
 
@@ -98,6 +109,28 @@
                             </div>
                         </li>
                     {% endif %}
+                    
+                    <li class="nav-item dropdown">
+                        <a class="nav-link count-indicator dropdown-toggle" id="messageDropdown" href="#"
+                           data-toggle="dropdown" aria-expanded="false">
+                            <i class="fas fa-language"></i>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list"
+                             aria-labelledby="messageDropdown">
+                            {% for k, locale in config('app.locales') %}
+
+                                <a class="dropdown-item preview-item {{ k == _locale ? 'active' : '' }}"
+                                   href="{{ path('account.locale', {locale: k}) }}">
+                                    <div class="preview-item-content">
+                                        <p class="preview-subject ellipsis mb-1">
+                                            {{ locale }}
+
+                                        </p>
+                                    </div>
+                                </a>
+                            {% endfor %}
+                        </div>
+                    </li>
                 </ul>
             </div>
         </div>
