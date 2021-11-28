@@ -62,8 +62,8 @@
                                                 <div class="is-online"></div>
                                             </div>
                                             <div class="dropdown-item-desc">
-                                                <b>{{ mail.data.subject }}</b>
-                                                <p>{{ mail.data.introLines[0] }}</p>
+                                                <b>{{ mail.data.subject |raw }}</b>
+                                                <p>{{ mail.data.introLines[0] |raw }}</p>
                                                 <div class="time">{{ mail.createdAt | ago }}</div>
                                             </div>
                                         </a>
@@ -110,6 +110,7 @@
                         </li>
                     {% endif %}
                     
+                {% if setting('disabled_changelocale') != 'true' %}
                     <li class="nav-item dropdown">
                         <a class="nav-link count-indicator dropdown-toggle" id="messageDropdown" href="#"
                            data-toggle="dropdown" aria-expanded="false">
@@ -131,6 +132,8 @@
                             {% endfor %}
                         </div>
                     </li>
+                    
+                {% endif %}
                 </ul>
             </div>
         </div>
