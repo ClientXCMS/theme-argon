@@ -1,15 +1,12 @@
 <nav class="sidenav navbar navbar-vertical  fixed-left  navbar-expand-xs navbar-light bg-white" id="sidenav-main" data-target="#sidenav-main">
     <div class="scrollbar-inner">
-        <!-- Brand -->
         <div class="sidenav-header  align-items-center">
             <a class="navbar-brand" href="javascript:void(0)">
                 {{ config('app.title') | html_decode | raw }}
             </a>
         </div>
         <div class="navbar-inner">
-            <!-- Collapse -->
             <div class="collapse navbar-collapse" id="sidenav-collapse-main">
-                <!-- Nav items -->
                 <ul class="navbar-nav">
 
                     {{ navigation('main_menu') }}
@@ -20,16 +17,12 @@
 </nav>
 <!-- Main content -->
 <div class="main-content" id="panel">
-    <!-- Topnav -->
     <nav class="navbar navbar-top navbar-expand navbar-dark bg-primary">
         <div class="container-fluid">
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <!-- Search form -->
-                <!-- Navbar links -->
                 <ul class="navbar-nav align-items-center  ml-md-auto ">
 
             <li class="nav-item d-xl-none">
-              <!-- Sidenav toggler -->
               <div class="pr-3 sidenav-toggler sidenav-toggler-dark" data-action="sidenav-pin" data-target="#sidenav-main">
                 <div class="sidenav-toggler-inner">
                   <i class="sidenav-toggler-line"></i>
@@ -62,8 +55,8 @@
                                                 <div class="is-online"></div>
                                             </div>
                                             <div class="dropdown-item-desc">
-                                                <b>{{ mail.data.subject |raw }}</b>
-                                                <p>{{ mail.data.introLines[0] |raw }}</p>
+                                                <b>{{ mail.subject |raw }}</b>
+                                                <p>{{ mail.content | excerpt() | raw }}</p>
                                                 <div class="time">{{ mail.createdAt | ago }}</div>
                                             </div>
                                         </a>
