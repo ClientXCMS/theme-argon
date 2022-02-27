@@ -1,0 +1,41 @@
+
+    {% extends "layout.twig" %}
+
+    {% block title trans("account.activity.title") %}
+
+    {% block styles %}
+        {% include '@account-copy/bullet.twig' %}
+    {% endblock %}
+    {% block body %}
+        <div class="row">
+        <div class="col-md-12 col-sm-12">
+            <div class="card">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="timeline timeline-one-side" data-timeline-axis-style="dotted">
+
+                        {% for row in logs %}
+
+                                <div class="timeline-block mb-3">
+                  <span class="timeline-step">
+                    <i class="fas fa-sign-out-alt text-danger text-gradient"></i>
+                  </span>
+                                    <div class="timeline-content">
+                                        <h6 class="text-dark text-sm font-weight-bold mb-0">{{ row.createdAt | ago }}</h6>
+                                        <p class="text-secondary font-weight-bold text-xs mt-1 mb-0">{{ row.createdAt.format("h:m") }}</p>
+                                        <p class="text-sm mt-3 mb-2">
+                                            {{ row.localization }}.
+                                        </p>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                        <div class="d-flex justify-content-center">
+                            {{ paginate(logs, 'account.activity') }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>{% endblock %}
+    {% block scripts %}{{ ago_scripts() }}{% endblock %}

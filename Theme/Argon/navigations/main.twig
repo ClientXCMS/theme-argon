@@ -1,78 +1,19 @@
 {% if title %}
-    <li class="menu-header">{{ trans(title) }}</li>
+
+    <li class="nav-item mt-3">
+        <h6 class="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6">{{ trans(title) }}</h6>
+    </li>
 {% endif %}
 {% if current_user() %}
     {% for item in online %}
-        <li class="{{ item.items is not empty ? 'dropdown' : 'nav-item' }} {{ is_subpath(item.route)  ? 'active' : '' }}">
-            <a class="nav-link {{ item.items is not empty ? 'has-dropdown' : '' }}" href="{{ path(item.route) }}">
-                <i class="{{ item.icon }}"></i>
-                <span>
-                    {{ trans(item.name) }}
-                </span>
-                {% if item.value %}
-                    <div class="float-right">
-                        <span class="badge badge-danger">{{ item.value }}</span>
-                    </div>
-                {% endif %}
-            </a>
-            {% if item.items is not empty %}
-                <ul class="dropdown-menu">
-                    {% for link, content in item.items %}
-                        <li><a class="nav-link" href="{{ link }}">{{ content }}</a>
-                        </li>
-                    {% endfor %}
-                </ul>
-            {% endif %}
-        </li>
+        {% include 'navigations/mainitems.twig' with {item: item} %}
     {% endfor %}
 {% endif %}
 {% if current_user() == null %}
     {% for item in offline %}
-        <li class="{{ item.items is not empty ? 'dropdown' : 'nav-item' }} {{ is_subpath(item.route)  ? 'active' : '' }}">
-            <a class="nav-link {{ item.items is not empty ? 'has-dropdown' : '' }}" href="{{ path(item.route) }}">
-                <i class="{{ item.icon }}"></i>
-                <span>
-                    {{ trans(item.name) }}
-                </span>
-                {% if item.value %}
-                    <div class="float-right">
-                        <span class="badge badge-danger">{{ item.value }}</span>
-                    </div>
-                {% endif %}
-            </a>
-            {% if item.items is not empty %}
-                <ul class="dropdown-menu">
-                    {% for link, content in item.items %}
-                        <li {{ link starts with  path(item.route) ? 'active' ? : '' }}><a class="nav-link"
-                                                                                          href="{{ link }}">{{ content }}</a>
-                        </li>
-                    {% endfor %}
-                </ul>
-            {% endif %}
-        </li>
+        {% include 'navigations/mainitems.twig' with {item: item} %}
     {% endfor %}
 {% endif %}
 {% for item in global %}
-    <li class="{{ item.items is not empty ? 'dropdown' : 'nav-item' }} {% if item.route == 'account' %} {{ is_path(item.route)  ? 'active' : '' }} {% else %} {{ is_subpath(item.route)  ? 'active' : '' }} {% endif %}">
-        <a class="nav-link {{ item.items is not empty ? 'has-dropdown' : '' }}" href="{{ path(item.route) }}">
-            <i class="{{ item.icon }}"></i>
-            <span>
-                    {{ trans(item.name) }}
-                </span>
-            {% if item.value %}
-                <div class="float-right">
-                    <span class="badge badge-danger">{{ item.value }}</span>
-                </div>
-            {% endif %}
-        </a>
-        {% if item.items is not empty %}
-            <ul class="dropdown-menu">
-                {% for link, content in item.items %}
-                    <li {{ link starts with  path(item.route) ? 'active' ? : '' }}><a class="nav-link"
-                                                                                      href="{{ link }}">{{ content }}</a>
-                    </li>
-                {% endfor %}
-            </ul>
-        {% endif %}
-    </li>
+    {% include 'navigations/mainitems.twig' with {item: item} %}
 {% endfor %}

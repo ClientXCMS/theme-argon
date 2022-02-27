@@ -41,7 +41,7 @@ class ArgonTheme implements ThemeInterface
 
     public function getPluginsPath(): ?string
     {
-        return '/Argon/assets/vendor';
+        return '/Argon/assets/js/plugins';
     }
 
     public function getTemplatesPath(): string
@@ -51,7 +51,7 @@ class ArgonTheme implements ThemeInterface
 
     public function getComponentPath(): ?string
     {
-        return null;
+        return '/Argon/assets/js/core';
     }
 
     public function getContacts(): ?array

@@ -1,0 +1,31 @@
+{% block title trans("account.reset.title") %}
+{% extends 'auth.twig' %}
+
+
+{% block body %}
+    <form action="{{ path('auth.reset', {token: token, id:id}) }}" method="post">
+
+        {% if flash('error') %}
+            <div class="alert alert-danger">
+                {{ flash('error') }}
+            </div>
+        {% endif %}
+
+        {% if flash('sucess') %}
+            <div class="alert alert-success">
+                {{ flash('success') }}
+            </div>
+        {% endif %}
+
+        {{ field('password', null, trans("password"), {type: 'password',  class:'pwd-field'}) }}
+        {{ field('password_confirm', null, trans("confirmation"), {type: 'password',  class:'pwd-field'}) }}
+        {{ csrf_input() }}
+        <div style="text-align: center;">
+            {{ recaptcha() }}
+        </div>
+        <button type="submit" class="btn btn-primary w-100 my-4 mb-2">
+            {{ trans("account.reset.button") }}
+        </button>
+    </form>
+
+{% endblock %}
