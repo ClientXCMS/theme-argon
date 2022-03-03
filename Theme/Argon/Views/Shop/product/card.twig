@@ -1,4 +1,4 @@
-<div class="col-md-12 col-xl-4 col-lg-6 col-sm-12 mb-lg-0 mb-4">
+<div class="col-md-12 col-xl-4 col-lg-6 col-sm-12 mb-lg-0 mb-4 mt-4">
     <div class="card">
         <div class="card-header text-center pt-4 pb-3">
             <span class="text-uppercase font-weight-bold text-dark">{{ product.name }}</span>
@@ -17,13 +17,13 @@
             {% endif %}
 
             {% if product.inStockWarning(setting('stock_warning', "-1")) %}
-                <p class="badge badge-warning">{{ trans("instock", {"%count%": product.stock}) }}</p>
+                <p class="badge bg-warning">{{ trans("instock", {"%count%": product.stock}) }}</p>
 
             {% elseif product.stockcontrol %}
                 {% if product.stock <= 0 %}
-                    <span class="badge badge-danger">{{ trans("out_stock") }}</span>
+                    <span class="badge bg-danger">{{ trans("out_stock") }}</span>
                 {% else %}
-                    <span class="badge badge-success">{{ trans("instock", {"%count%": product.stock}) }}</span>
+                    <span class="badge bg-success">{{ trans("instock", {"%count%": product.stock}) }}</span>
                 {% endif %}
             {% endif %}
         </div>
