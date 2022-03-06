@@ -15,7 +15,7 @@
 								<div class="row">
 
 									{% for row in basket.rows %}
-										<div class="col-lg-6 col-md-6 col-12 row-{{ row.product.id }}">
+										<div class="col-lg-6 col-md-6 col-12" class="row-{{ row.product.id }}">
 											<div class="d-flex">
 												<div>
 													<h6 class="text-lg mb-0 mt-2">{{ row.product.name }}</h6>
@@ -25,38 +25,33 @@
 													<span class="badge bg-info" id="setupfee-{{ row.product.id }}">{{trans("setupfee") }}
 														:
 														{{ row.product.originalSetupfee(row.toRecurring().name) | formatted_price(true, 'none')  | trans }}</span>
-													<div class="row mt-3">
+													<p class="text-sm mb-3 mt-3">
 														{% if row.product.data is empty %}
-													<div class="col-lg-3 col-sm-12">
-
-													<input type="number" class="form-control quantity" name="quantity" value="{{ row.quantity }}" id="quantity-{{ row.quantity }}" style="width:5rem;" data-id="{{ row.product.id }}" onchange="changeQuantity(this)">
-													</div>
+															<input type="number" class="form-control quantity" name="quantity" value="{{ row.quantity }}" id="quantity-{{ row.quantity }}" style="width:5rem;" data-id="{{ row.product.id }}" onchange="changeQuantity(this)">
 														{% else %}
-															<p>{{ row.product.primaryData }}</p>
+															{{ row.product.primaryData }}
 														{% endif %}
+													</p>
 
 													{% if row.product.free %}
-														<p>{{ trans("recurrings.monthly") }}</p>
+														{{ trans("recurrings.monthly") }}
 													{% elseif row.product.paymenttype == 'onetime' %}
-														<p>{{ trans("onetime") }}</p>
+														{{ trans("onetime") }}
 													{% else %}
 
 														{% if row.isUniqueCycle() %}
-															<p>{{ trans(row.UniqueCycle.translateKey) }}</p>
+															{{ trans(row.UniqueCycle.translateKey) }}
 														{% else %}
-															<div class="col-lg-9 col-sm-12">
+
 															<select class="form-control billing" data-id="{{ row.product.id }}" onchange="changeBilling(this)">
 																{% for cycle in row.cyclesAvailable %}
 																	{% if row.product.originalPrice(cycle.name, 0, true) != 0 %}
-																		<option value="{{ cycle.name }}" {% if cycle.name == row.billing %} selected {% endif %}>{{ trans(cycle.translateKey) }} {{ row.product.getDiscountForRecurring(cycle, row.UniqueCycle)!= 0 ? row.product.getDiscountForRecurring(cycle, row.UniqueCycle) ~ "% Saved" }}</option>
+																		<option value="{{ cycle.name }}" {% if cycle.name == row.billing %} selected {% endif %}>{{ trans(cycle.translateKey) }}</option>
 																	{% endif %}
 																{% endfor %}
 															</select>
-															</div>
 														{% endif %}
 													{% endif %}
-												</div>
-
 
 												</div>
 											</div>
@@ -74,6 +69,7 @@
 												<i class="fas fa-trash"></i>
 											</button>
 										</div>
+									</div>
 								{% endfor %}
 
 								<div class="col-lg-9 col-md-6 col-12"></div>
@@ -102,18 +98,15 @@
 										<span class="text-sm">
 											<strong>{{ trans("tax") }}:</strong>
 										</span>
-										<span class="text-dark ms-2 font-weight-bold" id="tax">{{ basket.vat(current_user()) }}</span>
+										<span class="text-dark ms-2 font-weight-bold" id="tax">{{ basket.vat(current_user()) }}%</span>
 									</div>
 
 									<div class="d-flex justify-content-between mt-4">
-										<span class="mb-2 text-lg">
-											Total:
-										</span>
-										<span class="text-dark text-lg ms-2 font-weight-bold" id="total">{{ basket.total | formatted_price(true, "none") | trans }}</span>
+										<a href="{{ path('basket.checkout') }}" class="btn btn-primary float-right" style="max-width:auto;">{{ trans("basket.checkout" ) }}</a>
 									</div>
+									
 								</div>
 							</div>
-				<a href="{{ path('basket.checkout') }}" class="btn btn-primary float-right" style="max-width:auto;">{{ trans("basket.checkout" ) }}</a>
 
 						</div>
 					</div>
