@@ -15,16 +15,22 @@
 								<div class="row">
 
 									{% for row in basket.rows %}
-										<div class="col-lg-6 col-md-6 col-12" class="row-{{ row.product.id }}">
+									<div class="row-{{ row.product.id }}">
+									
+							<div class="col-12">
+								<div class="row">
+										<div class="col-lg-6 col-md-6 col-12">
 											<div class="d-flex">
 												<div>
 													<h6 class="text-lg mb-0 mt-2">{{ row.product.name }}</h6>
 													<span class="badge bg-primary" id="price-{{ row.product.id }}">{{trans("price") }}
 														:
 														{{ row.product.originalPrice(row.toRecurring().name) | formatted_price(true, 'none')  | trans }}</span>
+														{% if row.product.originalSetupfee(row.toRecurring().name) != 0 %}
 													<span class="badge bg-info" id="setupfee-{{ row.product.id }}">{{trans("setupfee") }}
 														:
 														{{ row.product.originalSetupfee(row.toRecurring().name) | formatted_price(true, 'none')  | trans }}</span>
+														{% endif %}
 													<p class="text-sm mb-3 mt-3">
 														{% if row.product.data is empty %}
 															<input type="number" class="form-control quantity" name="quantity" value="{{ row.quantity }}" id="quantity-{{ row.quantity }}" style="width:5rem;" data-id="{{ row.product.id }}" onchange="changeQuantity(this)">
@@ -69,26 +75,28 @@
 												<i class="fas fa-trash"></i>
 											</button>
 										</div>
-									</div>
+										</div>
+										</div>
+										</div>
 								{% endfor %}
 
 								<div class="col-lg-9 col-md-6 col-12"></div>
 								<div class="col-lg-3 col-12 ms-auto">
 									<h6 class="mb-3">{{trans("basket.title")}}</h6>
 									<div class="d-flex justify-content-between">
-										<span class="mb-2 text-sm">
+										<span class="mb-2">
 											<strong>{{ trans("subtotal") }}:</strong>
 										</span>
 										<span class="text-dark font-weight-bold ms-2" id="subtotal">{{ basket.subtotal | formatted_price(true, "none") | trans }}</span>
 									</div>
 									<div class="d-flex justify-content-between">
-										<span class="mb-2 text-sm">
+										<span class="mb-2">
 											<strong>{{ trans("discount") }}:</strong>
 										</span>
 										<span class="text-dark ms-2 font-weight-bold" id="discount">{{ basket.discount | formatted_price(true, "none") | trans }}</span>
 									</div>
 									<div class="d-flex justify-content-between">
-										<span class="text-sm">
+										<span class="">
 											<strong>{{ trans("setupfee") }}:</strong>
 										</span>
 										<span class="text-dark ms-2 font-weight-bold" id="setupfee">{{ basket.setupfee | formatted_price(true, "none") | trans }}</span>
@@ -99,6 +107,13 @@
 											<strong>{{ trans("tax") }}:</strong>
 										</span>
 										<span class="text-dark ms-2 font-weight-bold" id="tax">{{ basket.vat(current_user()) }}%</span>
+									</div>
+
+									<div class="d-flex justify-content-between">
+										<span class="text-sm">
+											<strong>{{ trans("total") }}:</strong>
+										</span>
+										<span class="text-dark ms-2 font-weight-bold" id="total">{{ basket.total | formatted_price(true, "none") | trans }} </span>
 									</div>
 
 									<div class="d-flex justify-content-between mt-4">
