@@ -13,7 +13,7 @@
   --bs-orange: #fd7e14;
   --bs-yellow: #FBD38D;
   --bs-green: #81E6D9;
-  --bs-teal: #20c997;.navbar-vertical.navbar-expand-xs .navbar-collapse
+  --bs-teal: #20c997;
   --bs-cyan: #0dcaf0;
   --bs-white: #fff;
   --bs-gray: #6c757d;
@@ -22030,7 +22030,7 @@ hr.horizontal.gray-light {
   border-radius: 0.125rem;
   position: relative;
   display: block;
-  height: 2px;
+  height: 4px;
 }
 
 .navbar .sidenav-toggler-inner .sidenav-toggler-line:not(:last-child) {
@@ -22233,7 +22233,9 @@ hr.horizontal.gray-light {
 }
 
 .navbar-vertical.navbar-expand-xs .navbar-collapse {
-  display: block;
+    display: block;
+    overflow: auto;
+    height: calc(100vh - 150px);
 }
 
 .navbar-vertical.navbar-expand-xs>[class*="container"] {
