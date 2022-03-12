@@ -12,16 +12,19 @@
         <ul class="navbar-nav">
             {{ navigation('main_menu') }}
          </ul>
-        <div class="container d-flex justify-content-center">
-
+        {%  if config('argon_theme') == 'none' %}
+        <div class="container d-flex justify-content-right">
             <div class="mt-2 mb-5 d-flex">
-                <h6 class="mb-0">Dark mode</h6>
                 <div class="form-check form-switch ps-0 ms-auto my-auto">
-                    <input class="form-check-input mt-1 ms-auto" type="checkbox" id="dark-version" onclick="darkMode(this)">
+                    <input class="form-check-input mt-1 ms-auto" type="checkbox" id="dark-version" onclick="darkMode(this)" {{ config('argon_default') == 'dark' and request().CookieParams.theme == 'dark' ? 'checked' : '' }} {{ config('argon_default') == 'dark' and request().CookieParams.theme == null ? 'checked' : '' }}>
                 </div>
+                <h6 class="mb-0" style="margin-left:20px;">Dark mode</h6>
             </div>
         </div>
-                </div>
+        {% else %}
+            <input type="checkbox" id="dark-version" style="display:none;" {{ (config('argon_theme') != 'light' or config('argon_default') == 'dark') and request().CookieParams.theme == null ? 'checked' : '' }}>
+        {% endif %}
+    </div>
             </li>
         </ul>
     </div>

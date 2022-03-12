@@ -1,0 +1,9 @@
+
+<div class="row">
+    <div class="col-sm-12 col-md-12">
+        {{ field('argon_theme',config('argon_theme'),  'Argon theme display', {options: themes}, {'onchange': "if(this.selectedIndex != 0){ document.getElementById('argon_default_container').classList.add('d-none')} else {document.getElementById('argon_default_container').classList.remove('d-none')} "}) }}
+    </div>
+    <div class="col-sm-12 col-md-12 {{ config('argon_theme') != 'none' ?  'd-none' : ''  }}" id="argon_default_container">
+        {{ field('argon_default',  config('argon_default'), 'Argon default theme', {options: default}) }}
+    </div>
+</div>

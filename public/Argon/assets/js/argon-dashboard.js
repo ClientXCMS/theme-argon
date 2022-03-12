@@ -391,11 +391,13 @@ html.addEventListener("click", function (e) {
 
 let referenceButtons = document.querySelector('[data-class]');
 
-window.addEventListener("resize", navbarColorOnResize);
 
 function navbarColorOnResize()
 {
     if (window.innerWidth > 1200) {
+        if (referenceButtons === undefined){
+            return;
+        }
         if (referenceButtons.classList.contains('active') && referenceButtons.getAttribute('data-class') === 'bg-transparent') {
             sidenav.classList.remove('bg-white');
         } else {
@@ -410,11 +412,7 @@ function navbarColorOnResize()
 // Deactivate sidenav type buttons on resize and small screens
 window.addEventListener("resize", sidenavTypeOnResize);
 window.addEventListener("load", sidenavTypeOnResize);
-window.addEventListener("load", function (e) {
-    if (cookie('theme') && cookie('theme') === 'dark') {
-        darkMode(document.getElementById("dark-version"))
-    }
-});
+
 
 function sidenavTypeOnResize()
 {
@@ -748,11 +746,6 @@ function darkMode(el)
         el.removeAttribute("checked");
     }
 };
-window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
-    if (e.matches) {
-        darkMode(document.getElementById("dark-version"))
-    }
-});
 
 function cookie(name, value = undefined, options = {})
 {

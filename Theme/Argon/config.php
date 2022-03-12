@@ -1,8 +1,7 @@
 <?php
 
-$return = [
-    'class' => \Themes\Argon\ArgonTheme::class,
-];
+use function DI\add;
+use function DI\get;
 
 return [
     'class' => \Themes\Argon\ArgonTheme::class,
@@ -14,5 +13,8 @@ return [
         return 'mt-2';
     })),
 
-    'theme_primary' => \ClientX\setting("theme_primary")
+    'theme_primary' => \ClientX\setting("theme_primary"),
+    'argon_theme' => \ClientX\setting("argon_theme", "none"),
+    'argon_default' => \ClientX\setting("argon_default", "light"),
+    'admin.settings' => add(get(\Themes\Argon\ArgonSettings::class))
 ];

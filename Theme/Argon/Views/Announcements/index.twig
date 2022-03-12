@@ -1,0 +1,71 @@
+{% extends "layout.twig" %}
+
+{% block title trans("announcements") %}
+
+{% block body %}
+
+    <section class="forms">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-3 col-sm-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <h4>{{ trans("announcementsadmin.bymonth") }}</h4>
+                            <ul class="list-group">
+                                <a class="list-group-item "
+                                   href="{{ path('announcements.index') }}">{{ trans("announcementsadmin.all") }}</a>
+                                {% for month in months %}
+                                    {% set currentDate = [month.format('Y'),month.format('m')] | join('-') %}
+                                    <a class="list-group-item {{ currentDate == current ? 'active' }}"
+                                       href="{{ path('announcements.view', {year: month.format('Y'), month: month.format('m')}) }}">{{ month.format('M Y') }}</a>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-9 col-sm-12">
+                        {% for row in announcements|batch(3) %}
+                            <div class="card-group" style="margin-top: 30px;">
+
+                            {% for announcement in row %}
+                            <div class="card">
+                                <div class="card-header p-0 mx-3 mt-3 position-relative z-index-1">
+                                    <a href="{{ path('announcements.show', {id: announcement.id}) }}" class="d-block">
+                                        <img src="{{ announcement.thumbnailUrl }}" class="img-fluid border-radius-lg">
+                                    </a>
+                                </div>
+
+                                <div class="card-body pt-2">
+                                    {% if announcement.pinned %}
+                                    <span class="text-gradient text-primary text-uppercase text-xs font-weight-bold my-2">{{ trans("pinned") }}</span>
+                                    {% endif %}
+                                    <a href="{{ path('announcements.show', {id: announcement.id}) }}" class="card-title h5 d-block text-darker">
+                                        {{ announcement.title }}
+                                    </a>
+                                    <p class="card-description mb-4">
+                                        {{ announcement.excerpt | raw }}
+                                    </p>
+                                    <a class="card-footer" href="{{ path('announcements.show', {id: announcement.id}) }}">
+                                        {{ trans("see_more") }}
+                                    </a>
+                                    <div class="author align-items-center">
+                                        <div class="name ps-3">
+                                            <div class="stats">
+                                                <small>{{ announcement.createdAt.format('h M y') }}</small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                                {% endfor %}
+                        </div>
+                        {% endfor %}
+            </div>
+        </div>
+    </section>
+{% endblock %}
+
+{% block scripts %}
+    {{ ago_scripts() }}
+
+{% endblock %}

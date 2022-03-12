@@ -26,6 +26,15 @@
     function confirmation() {
         return confirm(window.confirmationText)
     }
+    {% if config('argon_theme') != 'none' or (config('argon_default') == 'dark' and request().CookieParams.theme == null) %}
+    darkMode(document.getElementById("dark-version"))
+    {% else %}
+    window.addEventListener("load", function (e) {
+        if (cookie('theme') && cookie('theme') === 'dark') {
+            darkMode(document.getElementById("dark-version"))
+        }
+    });
+    {% endif %}
 </script>
 {% block scripts %}{% endblock %}
 {% autoescape false %}{{ config('html.body') }}{% endautoescape %}
