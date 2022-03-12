@@ -14,6 +14,8 @@
          </ul>
         {%  if config('argon_theme') == 'none' %}
         <div class="container d-flex justify-content-right">
+         
+
             <div class="mt-2 mb-5 d-flex">
                 <div class="form-check form-switch ps-0 ms-auto my-auto">
                     <input class="form-check-input mt-1 ms-auto" type="checkbox" id="dark-version" onclick="darkMode(this)" {{ config('argon_default') == 'dark' and request().CookieParams.theme == 'dark' ? 'checked' : '' }} {{ config('argon_default') == 'dark' and request().CookieParams.theme == null ? 'checked' : '' }}>
