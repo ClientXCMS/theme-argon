@@ -1,0 +1,45 @@
+{% extends "layout.twig" %}
+
+{% block title announcement.title | html_decode %}
+
+{% block body %}
+    <section class="forms">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col">
+
+                    <div class="card">
+                        <div class="card-header p-0 mx-3 mt-3 position-relative z-index-1">
+                            <a href="{{ path('announcements.show', {id: announcement.id}) }}" class="d-block">
+                                <img src="{{ announcement.thumbnailUrl }}" class="img-fluid border-radius-lg">
+                            </a>
+                        </div>
+
+                        <div class="card-body pt-2">
+                            {% if announcement.pinned %}
+                                <span class="text-gradient text-primary text-uppercase text-xs font-weight-bold my-2">{{ trans("pinned") }}</span>
+                            {% endif %}
+                            <a href="{{ path('announcements.show', {id: announcement.id}) }}" class="card-title h5 d-block text-darker">
+                                {{ announcement.title }}
+                            </a>
+                            <p class="card-description mb-4">
+                                {{ announcement.content | raw }}
+                            </p>
+                            <div class="author align-items-center">
+                                <div class="name ps-3">
+                                    <div class="stats">
+                                        <small>{{ announcement.createdAt | ago}}</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}
+
+{% block scripts %}
+    {{ ago_scripts() }}
+{% endblock %}

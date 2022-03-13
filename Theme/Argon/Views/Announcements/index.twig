@@ -51,7 +51,7 @@
                                     <div class="author align-items-center">
                                         <div class="name ps-3">
                                             <div class="stats">
-                                                <small>{{ announcement.createdAt.format('h M y') }}</small>
+                                                <small>{{ announcement.createdAt.format('l d F H:i') }}</small>
                                             </div>
                                         </div>
                                     </div>
@@ -60,6 +60,7 @@
                                 {% endfor %}
                         </div>
                         {% endfor %}
+                </div>
             </div>
         </div>
     </section>
