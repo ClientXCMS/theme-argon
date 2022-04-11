@@ -19,13 +19,13 @@
             </div>
             <span class="nav-link-text ms-1">{{ trans(item.name) }}</span>
         </a>
-        <div class="collapse " id="components{{ item.route }}">
+        <div class="collapse {{ is_subpath(item.route) ? 'show' }}" id="components{{ item.route }}">
             <ul class="nav ms-4">
                 {% for link, content in item.items %}
                 <li class="nav-item ">
-                    <a class="nav-link " href="{{ link }}">
+                    <a class="nav-link" href="{{ link }}">
                         <i class="{{ item.icon }} text-success text-sm opacity-10"></i>
-                        <span class="sidenav-normal"> {{ content}} </span>
+                        <span class="sidenav-normal"> {{ content}}</span>
                     </a>
                 </li>
                 {% endfor %}
