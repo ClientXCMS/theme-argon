@@ -1,19 +1,19 @@
 {% if item.items is empty %}
 <li class="nav-item">
-    <a class="nav-link {{ is_subpath(item.route) ? 'active' }}" href="{{ path(item.route) }}">
+    <a class="nav-link {{ is_subpath(item.route) ? 'active' }}" href="{{ path(item.route) }}" {%  if item.target %} target="{{ item.target }}" {% endif %}>
         <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
             <i class="{{ item.icon }} text-success text-sm opacity-10"></i>
         </div>
         <span class="nav-link-text ms-1">{{ trans(item.name) }}</span>
         {% if item.value %}
-                <span class="badge bg-danger" style="margin-left: auto; display: inline-block;">{{ item.value }}</span>
+                <span class="badge badge-danger" style="margin-left: auto; display: inline-block;">{{ item.value }}</span>
         {% endif %}
     </a>
 </li>
 {% else %}
 
     <li class="nav-item">
-        <a data-bs-toggle="collapse" href="#components{{ item.route }}" class="nav-link " aria-controls="components{{ item.route }}" role="button" aria-expanded="false">
+        <a data-bs-toggle="collapse" href="#components{{ item.route }}" class="nav-link " aria-controls="components{{ item.route }}" role="button" aria-expanded="false" {% if item.target %} target="{{ item.target }}" {% endif %}>
             <div class="icon icon-shape icon-sm text-center d-flex align-items-center justify-content-center">
                 <i class="{{ item.icon }} text-success text-sm opacity-10"></i>
             </div>
@@ -23,9 +23,9 @@
             <ul class="nav ms-4">
                 {% for link, content in item.items %}
                 <li class="nav-item ">
-                    <a class="nav-link" href="{{ link }}">
+                    <a class="nav-link{{ _path == link ? ' active' : '' }}" href="{{ link }}">
                         <i class="{{ item.icon }} text-success text-sm opacity-10"></i>
-                        <span class="sidenav-normal"> {{ content}}</span>
+                        <span class="sidenav-normal"> {{ content }}</span>
                     </a>
                 </li>
                 {% endfor %}
