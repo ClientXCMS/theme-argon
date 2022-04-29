@@ -62,9 +62,6 @@
   --danger: var(--bs-danger);
   --success: var(--bs-success);
 }
-.dark-version .form-control, dark-version .form-control:target {
-  background: #344767;
-}
 .dark-version .bg-default {
   background-color: #111C44!important;
 }
@@ -3577,6 +3574,7 @@ textarea.form-control.is-invalid {
   font-size: 0.875rem;
   border-radius: 0.5rem;
   transition: all 0.15s ease-in;
+    margin: 0!important;
 }
 
 @media (prefers-reduced-motion: reduce) {
