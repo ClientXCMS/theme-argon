@@ -29,7 +29,7 @@
         {{ csrf_input() }}
         {{ field('email', null,trans("email") , {type: 'email'}) }}
         {{ field('password', null, trans("password") , {type: 'password'}) }}
-        <div style="text-align: center;">
+        <div class="mt-3" style="text-align:center;">
             {{ recaptcha() }}
         </div>
             <div class="form-check form-switch mt-2">

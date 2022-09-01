@@ -1,5 +1,5 @@
 {% if is_dark() or (config('argon_default') == 'dark' and  request().CookieParams.theme == 'dark') %}
-{% set dark = true %}
+    {% set dark = true %}
 {% endif %}
 {% set marginBtn = true %}
 {% include("@account-copy/home.twig") %}
