@@ -33,6 +33,17 @@
         {{ field('password', null, trans("password"), {'type': 'password', 'class':'pwd-field'}) }}
         {{ field('password_confirm', null, trans("confirmation"), {'type': 'password', 'class':'pwd-field'}) }}
 
+
+            {{ field('question_id', null, trans("question_security.field1"),{options: questions}) }}
+            {{ field('question_reply', null, trans("question_security.field2")) }}
+        {% if options is not empty %}
+
+            {{ field('how_did_you_find_us', null, trans("how_did_you_find_us"), {options: options}) }}
+            {{ field('how_did_you_find_us_none', null, null, {label: false}, {style:'display:none;'}) }}
+        {% endif %}
+        <div class="mt-3"  style="text-align: center;">
+            {{ recaptcha() }}
+        </div>
         {% if setting('tosLinks') %}
             <div class="col-md-12 col-sm-12">
                     <div class="form-check form-switch">
@@ -45,7 +56,6 @@
                     </div>
             </div>
         {% endif %}
-
 
             <button class="btn btn-primary w-100 my-4 mb-2">{{ trans("register") }}</button>
         <p class="text-sm mt-3 mb-0">{{ trans("account.signup.alreadyclient") }} <a href="{{ path('auth.login') }}" class="text-dark font-weight-bolder">{{ trans("login") }}</a></p>
