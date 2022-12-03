@@ -1,6 +1,6 @@
 
 <label class="imagecheck mb-2 mt-2">
-    <input name="{{ name ?? 'type' }}" type="radio" value="{{ value }}" {{ checked ? 'checked '}} class="imagecheck-input" {% for name,attr in attributes %}{{ name }}="{{ attr }}"{% endfor %}"/>
+    <input name="{{ name ?? 'type' }}" type="radio" value="{{ value }}" {{ checked ? 'checked '}} class="imagecheck-input" {% for name,attr in attributes %}{{ name }}="{{ attr }}"{% endfor %}/>
     <div class="card card-large-icons imagecheck-figure">
         <div class="card-icon bg-primary text-white">
             {% if img %}
