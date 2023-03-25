@@ -1,0 +1,280 @@
+{% if errors %}
+
+    <div class="col-md-12 col-sm-12 alert alert-danger">
+        {{errors}}
+    </div>
+{% else %}
+    {% if service.terminated == false %}
+    <div class="row">
+        <div class="col-xl-4 col-sm-12 col-md-12">
+            <div class="card card-body">
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">
+                        <strong>
+                            <h5>
+                                <i class="fa fa-rss" aria-hidden="true"></i>
+                                {{ trans("pterodactyl.panel.information") }}
+                            </h5>
+                        </strong>
+                    </li>
+
+                    <li class="list-group-item">
+                        <strong>
+                            {{ trans("system") }}:
+                        </strong>
+                        Pterodactyl
+                    </li>
+
+                    <li class="list-group-item">
+                        <strong>
+                            {{ trans("email") }}:
+                        </strong>
+                        {{ email }}
+                    </li>
+                    {% if inAdmin == false %}
+
+
+                        <li class="list-group-item">
+                            {{ trans("pterodactyl.panel.problem") }}
+                            <strong>
+                                <a href="{{ path('support.submit') }}">
+                                    {{ trans("pterodactyl.panel.openticket") }}
+                                </a>
+                            </strong>
+                        </li>
+                    {% endif %}
+
+                </ul>
+            </div>
+
+            <div class="card mt-2">
+                <div class="card-body">
+				<div class="progress-wrapper">
+  <div class="progress-info">
+    <div class="progress-percentage">
+      <span class="text-sm font-weight-bold">{{
+                            trans('pterobox.form.resources.memory') }} : {{ pterobox.porcent('memory') }}%</span>
+    </div>
+  </div>
+  <div class="progress">
+    <div class="progress-bar bg-gradient-{{ pterobox.porcentColor(pterobox.porcent('memory')) }}" role="progressbar" aria-valuenow="{{ pterobox.porcent('memory') }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ pterobox.porcent('memory') }}%;"></div>
+  </div>
+</div>
+
+				<div class="progress-wrapper">
+  <div class="progress-info">
+    <div class="progress-percentage">
+      <span class="text-sm font-weight-bold">{{
+                            trans('pterobox.form.resources.disk') }} : {{ pterobox.porcent('disk') }}%</span>
+    </div>
+  </div>
+  <div class="progress">
+    <div class="progress-bar bg-gradient-{{ pterobox.porcentColor(pterobox.porcent('disk')) }}" role="progressbar" aria-valuenow="{{ pterobox.porcent('disk') }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ pterobox.porcent('disk') }}%;"></div>
+  </div>
+</div>
+
+
+                </div>
+            </div>
+
+        </div>
+        <div class="col-xl-8 col-sm-12 col-md-12">
+            <div class="row">
+
+                {% for key, values in stats %}
+                    {% if inAdmin == false %}
+                        {% include "navigations/home.twig" with {'items': [
+                            {
+                                'name': trans("pterobox.form.features." ~ key) ~ " " ~ trans(attribute(pterobox, key) == 1 ? 'pterobox.used'
+                                : 'pterobox.used2'),
+                                'value': attribute(pterobox, key) ~ '/' ~ attribute(pterobox.service, key),
+                                'color': values[0],
+                                'icon': values[1],
+                                'col' : '6',
+                            }
+                        ]} %}
+
+                    {% else %}
+                        <div class="col-xl-6 col-sm-12 col-md-12">
+                            <div class="small-box bg-{{ values[0] }}">
+                                <div class="inner">
+                                    <h3>
+
+                                        {{ attribute(pterobox, key) ~ '/' ~ attribute(pterobox.service, key) }}</h3>
+
+                                    <p>{{ trans("pterobox.form.features." ~ key) ~ " " ~ trans(attribute(pterobox, key) == 1 ?
+                                            'pterobox.used' : 'pterobox.used2') }}</p>
+                                </div>
+                                <div class="icon">
+                                    <i class="{{ values[1] }}"></i>
+                                </div>
+                            </div>
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-12 col-md-12">
+                <div class="card mt-2">
+                    <form method="POST" action="{{ path('pterobox.create', {id: service.id}) }}">
+                        {{ csrf_input() }}
+                        <div class="card-body">
+                            <h4>{{ trans('pterobox.createserver') }}</h4>
+                            <div class="row">
+                                <div class="col-sm-12 col-md-6">
+                                    {{ field('memory', pterobox.service.memory - pterobox.memory,
+                                        trans('pterobox.panel.memory'), {prefix: 'GB', type: 'number'}) }}
+                                </div>
+                                <div class="col-sm-12 col-md-6">
+
+                                    {{ field('disk', pterobox.service.disk -
+                                        pterobox.disk,trans('pterobox.panel.disk'),{prefix: 'GB', type: 'number'}) }}
+                                </div>
+                                <div class="col-sm-12 col-md-6">
+
+                                    {{ field('databases', pterobox.service.databases - pterobox.databases,
+                                        trans('pterobox.form.features.databases'), {type: 'number'}) }}
+                                </div>
+                                <div class="col-sm-12 col-md-6">
+
+                                    {{ field('backups', pterobox.service.backups - pterobox.backups,
+                                        trans('pterobox.form.features.backups'), {type: 'number'}) }}
+                                </div>
+                                <div class="col-sm-12 col-md-6">
+
+                                    {{ field('allocations', pterobox.service.allocations - pterobox.allocations,
+                                        trans('pterobox.form.features.allocations'), {type: 'number'}) }}
+
+                                </div>
+                                <div class="col-sm-12 col-md-6">
+                                    {{ field('name', null, trans('pterobox.servername')) }}
+                                </div>
+
+                                <div class="col-sm-12 col-md-12">
+
+                                    {{ field('egg', null, "Eggs", {options: eggs}) }}
+                                </div>
+                                <button class="btn btn-primary">{{ trans('create') }}</button>
+                            </div>
+                        </div>
+                    </form>
+
+                </div>
+                <div class="card mt-2">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-12">
+
+                                <div class="table-responsive">
+                                    <table class="table text-center">
+                                        <thead>
+                                        <tr>
+                                            <th scope="col">#</th>
+                                            <th scope="col" style="margin:auto;">{{ trans('pterobox.servername') }}</th>
+                                            <th scope="col" style="margin:auto;"><i class="fas fa-atom"></i></th>
+                                            <th scope="col" style="margin:auto;"><i class="fas fa-hdd"></i></th>
+                                            <th scope="col" style="margin:auto;"><i class="fas fa-database"></i></th>
+                                            <th scope="col" style="margin:auto;"><i class="fas fa-save"></i></th>
+                                            <th scope="col" style="margin:auto;"><i class="fas fa-network-wired"></i>
+                                            </th>
+                                            <th scope="col">{{ trans('action') }}</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        {% for server in servers %}
+
+                                            <tr>
+
+                                                <th scope="row"><a href="{{ pterobox.panelUrl(service, server.identifier) }}" class="btn btn-primary" target="_blank"><i class="fas fa-maximize"></i></a></th>
+
+                                                <td>
+                                                    <form method="POST" style="display:inline;"
+                                                          action="{{ path('pterobox.delete', {id: server.id}) }}">
+
+                                                        <button class="btn btn-danger btn-sm" name="DELETE"
+                                                                onclick="return confirmation()"><i
+                                                                    class="fas fa-trash"></i></button>
+                                                        {{ csrf_input() }}
+                                                        <input name="_method" type="hidden" value="DELETE">
+                                                    </form>{{ server.name }}
+
+                                                    {% set ip = server.relationships.allocations.data[0].attributes %}
+                                                    <p>{{ ip.alias ? ip.alias ~ ":" ~ ip.port : ip.ip ~ ":" ~ ip.port }}</p>
+                                                </td>
+                                                <td>{{ field('memory', server.limits.memory / 1024, null, {label: false,
+                                                        prefix: 'GB', id:null}) }}</td>
+                                                <td>{{ field('disk', server.limits.disk / 1024, null, {label: false, prefix:
+                                                        'GB', id:null}) }}</td>
+                                                <td>{{ field('databases', server.feature_limits.databases, null, {label:
+                                                        false, id:null}) }}</td>
+                                                <td>{{ field('backups', server.feature_limits.backups, null, {label: false,
+                                                        id:null}) }}</td>
+                                                <td>{{ field('allocations', server.feature_limits.allocations, null, {label:
+                                                        false, id:null}) }}</td>
+                                                <td>
+                                                    <a class="btn btn-primary btn-edit"
+                                                       data-action="{{ path('pterobox.updatebox', {id: server.id}) }}"><i
+                                                                class="fas fa-pen"
+                                                                data-action="{{ path('pterobox.updatebox', {id: server.id}) }}"></i></a>
+
+
+
+                                                </td>
+
+                                            </tr>
+
+                                        {% endfor %}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        {% endif %}
+
+                        <form method="POST" action="" id="editForm">
+
+                            <input type="hidden" name="memory">
+                            <input type="hidden" name="databases">
+                            <input type="hidden" name="allocations">
+                            <input type="hidden" name="backups">
+                            <input type="hidden" name="disk">
+                            <input type="hidden" name="_csrf">
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+
+        document.addEventListener("service_reloaded", function (e) {
+            init()
+        })
+        function init() {
+
+            const editBtn = document.querySelectorAll(".btn-edit")
+            console.log(editBtn)
+            Array.from(editBtn).map(function (el) {
+                el.addEventListener("click", function (e) {
+                    let parent = e.target.parentNode;
+                    if (e.target.tagName === 'I') {
+                        parent = parent.parentNode;
+                    }
+                    document.getElementById("editForm").setAttribute('action', e.target.dataset.action)
+
+                    parent = parent.parentNode;
+                    Array.from(parent.querySelectorAll("input")).map(function (input) {
+                        if (input.getAttribute('name') == '_method') {
+                            return;
+                        }
+                        document.getElementById("editForm").querySelector('[name="' + input.getAttribute('name') + '"]').value = input.value;
+                    })
+                    document.getElementById("editForm").submit()
+                })
+            })
+        }
+        init()
+    </script>
+{% endif %}
