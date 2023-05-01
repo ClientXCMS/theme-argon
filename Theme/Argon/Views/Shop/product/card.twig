@@ -5,7 +5,8 @@
 
             {% if product.ribbon %}
                 <div class="ribbon-wrapper">
-                    <div class="ribbon ribbon-{{ product.ribbonColor }}">{{ product.ribbon | html_decode }}</div>
+                                <div class="ribbon"  style="background: #{{ product.ribbonColor }}!important;">{{ product.ribbon | html_decode }}</div>
+
                 </div>
             {% endif %}
             <h1 class="font-weight-bold mt-2">
