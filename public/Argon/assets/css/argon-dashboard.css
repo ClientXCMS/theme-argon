@@ -10281,31 +10281,31 @@ fieldset:disabled .btn {
   background-color: #5e72e4 !important;
 }
 
-.bg-secondary .badge-secondary{
+.bg-secondary, .badge-secondary{
   background-color: #8392ab !important;
 }
 
-.bg-success .badge-success{
+.bg-success, .badge-success{
   background-color: #2dce89 !important;
 }
 
-.bg-info .badge-info{
+.bg-info, .badge-info{
   background-color: #11cdef !important;
 }
 
-.bg-warning .badge-warning{
+.bg-warning, .badge-warning{
   background-color: #fb6340 !important;
 }
 
-.bg-danger .badge-danger{
+.bg-danger, .badge-danger{
   background-color: #f5365c !important;
 }
 
-.bg-light .badge-light{
+.bg-light, .badge-light{
   background-color: #e9ecef !important;
 }
 
-.bg-dark .badge-dark {
+.bg-dark, .badge-dark {
   background-color: #344767 !important;
 }
 
@@ -10313,7 +10313,7 @@ fieldset:disabled .btn {
   background-color: #fff !important;
 }
 
-.bg-body .badge-body{
+.bg-body, .badge-body{
   background-color: #fff !important;
 }
 
