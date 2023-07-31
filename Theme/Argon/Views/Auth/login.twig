@@ -9,13 +9,11 @@
                 {{ flash('error') }}
             </div>
         {% endif %}
-
         {% if flash('info') %}
             <div class="alert alert-info">
                 {{ flash('info') }}
             </div>
         {% endif %}
-
         {% if flash('warning') %}
             <div class="alert alert-warning">
                 {{ flash('warning') }}
@@ -32,27 +30,21 @@
         <div class="mt-3" style="text-align:center;">
             {{ recaptcha() }}
         </div>
-            <div class="form-check form-switch mt-2">
-                <input type="checkbox" class="form-check-input" id="remember" name="remember">
-                <label class="form-check-label" for="remember">{{ trans("account.login.remember") }}</label>
-            </div>
-                <div class="text-center">
-                    <button class="btn btn-primary w-100 my-4 mb-2">{{ trans("account.login.tologin") }}</button>
-                </div>
+        <div class="form-check form-switch mt-2">
+            <input type="checkbox" class="form-check-input" id="remember" name="remember">
+            <label class="form-check-label" for="remember">{{ trans("account.login.remember") }}</label>
+        </div>
+        <div class="text-center">
+            <button class="btn btn-primary w-100 my-4 mb-2">{{ trans("account.login.tologin") }}</button>
+        </div>
+        {{ include('@auth/socialbtn') }}
 
-            {% if config('register', 'true') == 'true' %}
-                <div class="mb-2 position-relative text-center">
-                    <p class="text-sm font-weight-bold mb-2 text-secondary text-border d-inline z-index-2 px-3">
-                        {{ trans("account.login.nocustomeryet") }}
-                    </p>
-                </div>
-                <div class="text-center">
-                    <a class="btn bg-gradient-dark w-100 mt-2 mb-4" href="{{ path('account.signup') }}">{{ trans("account.signup.title") }}</a>
-                </div>
-            {% endif %}
-            {% if config('resetpwd', 'true') == 'true' %}
-                <p class="text-sm mt-3 mb-0">{{ trans("account.reset.title") }} <a href="{{ path('auth.password') }}" class="text-dark font-weight-bolder">{{ trans("account.signup.clickhere") }}</a></p>
-            {% endif %}
+        {% if config('register', 'true') == 'true' %}
+            <p class="text-sm mt-3 mb-0">{{ trans("account.login.nocustomeryet") }} <a href="{{ path('auth.signup') }}" class="text-dark font-weight-bolder">{{ trans("account.signup.title") }}</a></p>
+        {% endif %}
+        {% if config('resetpwd', 'true') == 'true' %}
+            <p class="text-sm mt-3 mb-0">{{ trans("account.reset.title") }} <a href="{{ path('auth.password') }}" class="text-dark font-weight-bolder">{{ trans("account.reset.pass") }}</a></p>
+        {% endif %}
     </form>
     <br>
 
