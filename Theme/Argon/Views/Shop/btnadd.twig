@@ -3,7 +3,7 @@
 
 {% if product.ondemand %}
 
-    <a class="btn btn-lg btn-block btn-info" href="{{ path('support.submit') }}">
+    <a class="btn btn-lg btn-block btn-info" href="{{ setting('ondemand_redirect', path('support.submit')) }}">
         {{ trans("shopadmin.product.ondemand") }}
         <i class="fas fa-arrow-right"></i>
     </a>
