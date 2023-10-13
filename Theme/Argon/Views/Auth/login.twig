@@ -40,7 +40,7 @@
         {{ include('@auth/socialbtn') }}
 
         {% if config('register', 'true') == 'true' %}
-            <p class="text-sm mt-3 mb-0">{{ trans("account.login.nocustomeryet") }} <a href="{{ path('auth.signup') }}" class="text-dark font-weight-bolder">{{ trans("account.signup.title") }}</a></p>
+            <p class="text-sm mt-3 mb-0">{{ trans("account.login.nocustomeryet") }} <a href="{{ path('account.signup') }}" class="text-dark font-weight-bolder">{{ trans("account.signup.title") }}</a></p>
         {% endif %}
         {% if config('resetpwd', 'true') == 'true' %}
             <p class="text-sm mt-3 mb-0">{{ trans("account.reset.title") }} <a href="{{ path('auth.password') }}" class="text-dark font-weight-bolder">{{ trans("account.reset.pass") }}</a></p>
