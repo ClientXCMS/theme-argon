@@ -25,7 +25,7 @@
             </div>
         </div>
         {% else %}
-            <input type="checkbox" id="dark-version" style="display:none;" {{ (config('argon_theme') != 'light' or config('argon_default') == 'dark') and request().CookieParams.theme == null ? 'checked' : '' }}>
+            <input type="checkbox" id="dark-version" style="display:none;" {{ (config('argon_theme') == 'none' or config('argon_default') == 'dark') and request().CookieParams.theme == null ? 'checked' : '' }}>
         {% endif %}
     </div>
             </li>
